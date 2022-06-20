@@ -37,7 +37,7 @@ impl Qiita {
 
         for elem in doc.select(&selector).skip(2).take(1) {
             let re = Regex::new(r"(\d+)\z").unwrap();
-            for m in re.captures_iter(&elem.inner_html()) {
+            if let Some(m) = re.captures(&elem.inner_html()) {
                 return Ok(m[0].parse::<usize>()?);
             }
         }
